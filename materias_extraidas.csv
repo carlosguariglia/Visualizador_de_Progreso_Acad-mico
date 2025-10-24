@@ -1,0 +1,24 @@
+id,name,year,area,hours,state
+y1_s1,Inglés I,1,Campo General,64,no
+y1_s2,"Ciencia Tecnología y Sociedad",1,Campo General,64,no
+y1_s3,Análisis Matemático I,1,Campo del Fundamento,64,no
+y1_s4,Álgebra,1,Campo del Fundamento,64,no
+y1_s5,"Algoritmos y estructuras de datos I",1,Campo Técnico Específico,128,no
+y1_s6,"Sistemas y Organizaciones",1,Campo Técnico Específico,64,no
+y1_s7,"Arquitectura de Computadores",1,Campo Técnico Específico,64,no
+y1_s8,"Prácticas Profesionalizantes I",1,Campo de la Práctica,64,no
+y2_s1,Inglés II,2,Campo General,64,no
+y2_s2,Análisis Matemático II,2,Campo del Fundamento,64,no
+y2_s3,Estadística,2,Campo del Fundamento,64,no
+y2_s4,"Ingeniería de Software I",2,Campo Técnico Específico,64,no
+y2_s5,"Algoritmos y estructuras de datos II",2,Campo Técnico Específico,128,no
+y2_s6,"Sistemas Operativos",2,Campo Técnico Específico,64,no
+y2_s7,"Base de Datos",2,Campo Técnico Específico,64,no
+y2_s8,"Prácticas Profesionalizantes II",2,Campo de la Práctica,128,no
+y3_s1,Inglés III,3,Campo General,64,no
+y3_s2,"Aspectos legales de la Profesión",3,Campo del Fundamento,64,no
+y3_s3,"Seminario de actualización",3,Campo del Fundamento,64,no
+y3_s4,"Redes y Comunicaciones",3,Campo Técnico Específico,64,no
+y3_s5,"Ingeniería de Software II",3,Campo Técnico Específico,64,no
+y3_s6,"Algoritmos y estructuras de datos III",3,Campo Técnico Específico,128,no
+y3_s7,"Prácticas Profesionalizantes III",3,Campo de la Práctica,192,no

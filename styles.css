@@ -1,0 +1,71 @@
+:root{
+  --bg: #eef2f6;
+  --card: #ffffff;
+  --accent: #2b8ae2;
+  --muted: #6b7280;
+  --good: #16a34a;
+  --warn: #f59e0b;
+  --bad: #ef4444;
+}
+
+*{box-sizing:border-box}
+html,body,#root{height:100%}
+body{
+  margin:0;font-family:Inter, system-ui, -apple-system, 'Segoe UI', Roboto, 'Helvetica Neue', Arial;
+  background: linear-gradient(180deg,#e6f0ff 0%, var(--bg) 100%);
+  color:#111827;
+}
+.container{max-width:1000px;margin:18px auto;padding:14px}
+header h1{margin:0;font-size:20px}
+.subtitle{color:var(--muted);margin-top:6px}
+main{display:flex;gap:12px;margin-top:12px;align-items:flex-start}
+
+.visual{flex:2;display:flex;flex-direction:column;gap:8px}
+.mountain{position:relative;background:linear-gradient(180deg,#f0f6ff 0%, #f9fdff 100%);border-radius:12px;padding:12px;min-height:460px;display:flex;align-items:center;justify-content:center;overflow:hidden}
+.mountain-svg{position:relative;display:block;width:520px;height:auto;max-width:100%}
+.climber-g{transition:transform 700ms cubic-bezier(.2,.9,.2,1);transform-origin:16px 24px}
+.milestones{position:absolute;left:10%;right:10%;top:0;bottom:0;pointer-events:none}
+
+.progress-card{background:var(--card);border-radius:10px;padding:10px;box-shadow:0 6px 18px rgba(15,23,42,0.06);display:flex;align-items:center;gap:10px}
+.progress-bar-outer{flex:1;height:14px;background:#edf2f7;border-radius:999px;overflow:hidden}
+.progress-bar-inner{height:100%;width:0%;background:linear-gradient(90deg,var(--accent),#54a0ff);border-radius:999px}
+.progress-info{width:140px;text-align:right;color:var(--muted);font-size:14px}
+
+.controls{width:320px}
+.controls h2{margin-top:0}
+table{width:100%;border-collapse:collapse;background:var(--card);border-radius:8px;overflow:hidden;box-shadow:0 6px 18px rgba(15,23,42,0.04)}
+thead th{background:#f8fafc;padding:8px;text-align:left;font-size:13px;color:var(--muted)}
+tbody td{padding:8px;border-top:1px solid #f1f5f9}
+/* Secciones por año */
+.year-section{margin-top:8px;background:var(--card);border-radius:8px;padding:6px;box-shadow:0 6px 18px rgba(15,23,42,0.04)}
+.year-title{display:flex;justify-content:space-between;align-items:center;padding:6px 4px;border-bottom:1px solid #f1f5f9}
+.year-list{padding:6px}
+.sub-row{display:flex;gap:6px;align-items:center;padding:4px 0;border-bottom:1px dashed #eef2f7;font-size:14px}
+.sub-row .col-name{flex:1}
+.sub-row .col-hours{width:56px;text-align:right;color:var(--muted);font-size:13px}
+.sub-row .col-state{width:140px}
+.sub-row .col-value{width:56px;text-align:right;color:var(--muted);font-size:13px}
+
+/* Pestañas de años */
+.year-tabs{display:flex;gap:6px;margin:6px 0}
+.year-tabs button{
+  background:#f1f5f9; /* color claro pero con contraste frente al fondo */
+  color:var(--muted);
+  border:1px solid #e2e8f0;
+  padding:6px 8px;border-radius:8px;cursor:pointer;
+  box-shadow: none;font-size:13px;
+}
+.year-tabs button:hover{background:#e6eef9}
+.year-tabs button:focus{outline:2px solid rgba(43,138,226,0.18);outline-offset:2px}
+.year-tabs button.active{background:var(--accent);color:white;border-color:rgba(0,0,0,0.06)}
+
+.load-status{padding:6px 8px;border-radius:6px;background:transparent}
+select{padding:6px;border-radius:6px;border:1px solid #e6eef7}
+.buttons{display:flex;gap:8px;margin-top:10px}
+button{padding:8px 12px;border-radius:8px;border:0;background:var(--accent);color:white;cursor:pointer}
+button.secondary{background:#94a3b8}
+
+footer{margin-top:14px;color:var(--muted)}
+
+/* small screens */
+@media (max-width:980px){main{flex-direction:column} .controls{width:100%}}
