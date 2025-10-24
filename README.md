@@ -50,8 +50,22 @@ Qué hace `app.js` (explicación por partes)
   - `setStatus(msg)` centraliza el texto de estado visible a la derecha del progreso.
 
 - Cálculo de progreso (`calcTotals()`):
-  - Suma `hours` de todas las materias y calcula los "puntos actuales" aplicando los pesos para cada estado (0/0.25/0.75/1).
-  - Devuelve totalPoints, actualPoints y pct (porcentaje).
+  - Suma las `hours` de todas las materias para obtener los `totalPoints` (puntos totales disponibles).
+  - Para cada materia calcula los puntos aportados como: `hours * pesoPorEstado` y suma esos valores para obtener `actualPoints` (puntos obtenidos hasta ahora).
+  - Pesos por estado (definidos en `app.js` como `STATE_WEIGHT`):
+    - `no` (No cursada): 0.0 — no aporta puntos.
+    - `cursando` (Cursando): 0.25 — aporta el 25% de sus horas.
+    - `cursada` (Cursada aprobada): 0.75 — aporta el 75% de sus horas.
+    - `final` (Final aprobada): 1.0 — aporta el 100% de sus horas.
+    - `equivalencia` (Equivalencia): 1.0 — aporta el 100% de sus horas.
+  - Finalmente calcula el porcentaje:
+    - `pct = (actualPoints / totalPoints) * 100`
+  - Ejemplo rápido:
+    - Materia A: 60 h, estado `cursada` (0.75) → aporta 60 * 0.75 = 45 pts
+    - Materia B: 30 h, estado `final` (1.0) → aporta 30 * 1.0 = 30 pts
+    - `totalPoints = 60 + 30 = 90`
+    - `actualPoints = 45 + 30 = 75`
+    - `pct = 75 / 90 * 100 ≈ 83.3%`
 
 - UI dinámica (`renderTabs()` y `renderSubjects()`):
   - Agrupa materias por `year` (si están presentes) y renderiza pestañas por año.
