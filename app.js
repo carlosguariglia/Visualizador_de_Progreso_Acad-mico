@@ -32,6 +32,16 @@ const STATE_WEIGHT = {
 }
 
 let subjects = []
+let carreraNombre = null
+const subtitleEl = document.querySelector('.subtitle')
+const defaultSubtitle = subtitleEl ? subtitleEl.textContent : ''
+
+// Set the displayed name of the career (subtitle) and keep it in memory.
+// Accepts null/undefined to reset to the default subtitle.
+function setCarreraNombre(n){
+  carreraNombre = n || null
+  if (subtitleEl) subtitleEl.textContent = carreraNombre || defaultSubtitle
+}
 
 // elementos DOM
 const subjectsContainer = document.getElementById('subjectsContainer')
@@ -45,9 +55,35 @@ const pointsLabel = document.getElementById('points')
 const climberG = document.getElementById('climberG')
 const mountain = document.getElementById('mountain')
 const mountainSVG = document.getElementById('mountainSVG')
+const completionFlag = document.getElementById('completionFlag')
+const confettiContainer = document.getElementById('confetti')
+let confettiTimeout = null
+
+// Simple confetti launcher (CSS-based)
+// Creates `count` divs with random colors/positions and lets CSS animations handle the fall.
+// Kept intentionally simple and dependency-free; for a more realistic effect use a
+// canvas-based confetti library.
+function launchConfetti(count = 30){
+  if (!confettiContainer) return
+  confettiContainer.innerHTML = ''
+  const colors = ['#ef4444','#f59e0b','#fbbf24','#16a34a','#2b8ae2','#7c3aed']
+  for (let i=0;i<count;i++){
+    const el = document.createElement('div')
+    el.className = 'confetti-piece'
+    const left = Math.random()*100
+    el.style.left = left + '%'
+    el.style.background = colors[Math.floor(Math.random()*colors.length)]
+    el.style.transform = `translateY(${Math.random()*-40-10}px) rotate(${Math.random()*360}deg)`
+    el.style.animationDuration = (1200 + Math.random()*800) + 'ms'
+    el.style.opacity = 0.95
+    confettiContainer.appendChild(el)
+  }
+  // remove after animation
+  if (confettiTimeout) clearTimeout(confettiTimeout)
+  confettiTimeout = setTimeout(()=>{ if (confettiContainer) confettiContainer.innerHTML = '' }, 2000)
+}
 
 // botones
-const resetBtn = document.getElementById('resetBtn')
 const exportBtn = document.getElementById('exportBtn')
 const importBtn = document.getElementById('importBtn')
 const importFile = document.getElementById('importFile')
@@ -57,48 +93,72 @@ function setStatus(msg){
   if (statusEl) statusEl.textContent = msg
 }
 
+/*
+ load()
+ - Intenta cargar automáticamente `materias_extraidas.json` mediante fetch(). Esto solo funciona
+   si servís la carpeta por HTTP. Si el fetch falla (file:// o 404), cae a localStorage.
+ - Acepta dos formatos de JSON:
+     1) Array plano: [ {id,name,hours,state,year}, ... ]  (formato antiguo)
+     2) Objeto: { nombre_carrera: '...', materias: [ ... ] } (recomendado)
+ - Si hay datos en localStorage y difieren del archivo cargado, pregunta antes de sobrescribir.
+ - Si no encuentra nada, usa `DEFAULT_SUBJECTS`.
+*/
 async function load() {
-  // Primero intentar cargar un archivo JSON local `materias_extraidas.json`
-  // Esto funciona cuando la carpeta se sirve desde un servidor (http://),
-  // no funcionará desde file:// por restricciones de los navegadores.
-  try {
-    const resp = await fetch('materias_extraidas.json', { cache: 'no-store' })
-    if (resp.ok) {
-      const data = await resp.json()
-      if (Array.isArray(data)) {
-        // Si ya hay datos en localStorage y son diferentes, pedir confirmación antes de sobrescribir
-        const existingRaw = localStorage.getItem(STORAGE_KEY)
-        if (existingRaw) {
-          try {
-            const existing = JSON.parse(existingRaw)
-            if (JSON.stringify(existing) !== JSON.stringify(data)) {
-              const ok = confirm('Se encontraron datos guardados localmente. Al cargar el archivo externo se sobrescribirán. ¿Desea continuar?')
-              if (!ok) {
-                subjects = existing
-                setStatus('Se mantuvieron los datos locales (no se sobrescribió)')
-                return
-              }
-            }
-          } catch (e) {
-            // parse error: proceder a sobrescribir
-          }
+    try {
+      const resp = await fetch('materias_extraidas.json', { cache: 'no-store' })
+      if (resp.ok) {
+        const data = await resp.json()
+        // Aceptar tanto array plano como objeto con { nombre_carrera, materias }
+        let loaded = null
+        if (Array.isArray(data)) {
+          loaded = data
+        } else if (data && Array.isArray(data.materias)) {
+          loaded = data.materias
+          if (data.nombre_carrera) setCarreraNombre(data.nombre_carrera)
         }
-        subjects = data
-        save()
-        setStatus('Datos cargados desde materias_extraidas.json')
-        return
+        if (loaded) {
+          const existingRaw = localStorage.getItem(STORAGE_KEY)
+          if (existingRaw) {
+            try {
+              const existing = JSON.parse(existingRaw)
+              // normalizar existing para comparar (aceptar objeto o array)
+              const existingNorm = Array.isArray(existing) ? existing : (existing && Array.isArray(existing.materias) ? existing.materias : null)
+              if (existingNorm && JSON.stringify(existingNorm) !== JSON.stringify(loaded)) {
+                const ok = confirm('Se encontraron datos guardados localmente. Al cargar el archivo externo se sobrescribirán. ¿Desea continuar?')
+                if (!ok) {
+                  subjects = existingNorm || existing
+                  setStatus('Se mantuvieron los datos locales (no se sobrescribió)')
+                  return
+                }
+              }
+            } catch (e) {
+              // parse error: proceder a sobrescribir
+            }
+          }
+          subjects = loaded
+          save()
+          setStatus('Datos cargados desde materias_extraidas.json')
+          return
+        }
       }
+    } catch (err) {
+      // Fallamos al fetch (archivo no existe o CORS/file://). Caeremos al localStorage.
+      // Silencioso por diseño — no es un error crítico en uso local.
     }
-  } catch (err) {
-    // Fallamos al fetch (archivo no existe o CORS/file://). Caeremos al localStorage.
-    // Silencioso por diseño — no es un error crítico en uso local.
-  }
 
   // Si no hay archivo local, usar localStorage
   const raw = localStorage.getItem(STORAGE_KEY)
   if (raw) {
     try {
-      subjects = JSON.parse(raw)
+      const parsed = JSON.parse(raw)
+      if (Array.isArray(parsed)) {
+        subjects = parsed
+      } else if (parsed && Array.isArray(parsed.materias)) {
+        subjects = parsed.materias
+        if (parsed.nombre_carrera) setCarreraNombre(parsed.nombre_carrera)
+      } else {
+        // unknown format: ignore and fall back
+      }
       setStatus('Datos cargados desde localStorage')
       return
     } catch (e) {
@@ -112,12 +172,22 @@ async function load() {
 }
 
 function save() {
-  localStorage.setItem(STORAGE_KEY, JSON.stringify(subjects))
+  // Guardar materias junto con el nombre de la carrera (si está disponible)
+  // Guardamos un objeto con dos propiedades para preservar metadatos (nombre_carrera)
+  // Esto facilita restaurar el subtítulo al recargar la página.
+  const payload = {
+    nombre_carrera: carreraNombre || null,
+    materias: subjects
+  }
+  localStorage.setItem(STORAGE_KEY, JSON.stringify(payload))
 }
 
 function calcTotals() {
+  // totalPoints: suma de horas de todas las materias (base para el %)
   const totalPoints = subjects.reduce((s, x) => s + x.hours, 0)
+  // actualPoints: horas ponderadas por el estado de cada materia (0,0.25,0.75,1)
   const actualPoints = subjects.reduce((s, x) => s + x.hours * (STATE_WEIGHT[x.state] || 0), 0)
+  // porcentaje = (actual / total) * 100, con protección contra división por cero
   const pct = totalPoints === 0 ? 0 : (actualPoints / totalPoints) * 100
   return { totalPoints, actualPoints, pct }
 }
@@ -221,9 +291,36 @@ function updateAll(){
   percentageLabel.textContent = `${pct.toFixed(1)}%`
   pointsLabel.textContent = `${Math.round(actualPoints)} / ${Math.round(totalPoints)} puntos`
   moveClimberToPercent(pct)
+  // show completion flag when percentage reaches 100%
+  try {
+    if (completionFlag) {
+      if (Math.round(pct) >= 100) {
+        const wasVisible = completionFlag.classList.contains('visible')
+        completionFlag.classList.add('visible')
+        completionFlag.setAttribute('aria-hidden', 'false')
+        // launch confetti only when becoming visible
+        if (!wasVisible) launchConfetti(36)
+      } else {
+        completionFlag.classList.remove('visible')
+        completionFlag.setAttribute('aria-hidden', 'true')
+        if (confettiContainer) confettiContainer.innerHTML = ''
+      }
+    }
+  } catch (e) {
+    // ignore
+  }
 }
 
 function moveClimberToPercent(pct){
+  /*
+   moveClimberToPercent(pct)
+   - Si existe un `path#trail` en el inline SVG, posiciona el grupo `#climberG` a lo largo
+     del path en la longitud correspondiente al porcentaje.
+   - Calcula también una tangente muestreando un punto ligeramente adelantado para rotar
+     el sprite y que siga la pendiente.
+   - Si no hay SVG/path, usa un fallback que posiciona el sprite verticalmente dentro
+     del contenedor `.mountain`.
+  */
   // If we have an inline SVG with a trail path, position the climber along that path.
   try {
     if (mountainSVG) {
@@ -268,15 +365,15 @@ function moveClimberToPercent(pct){
   }
 }
 
-resetBtn.addEventListener('click', ()=>{
-  if(!confirm('Resetear datos a valores por defecto?')) return
-  subjects = DEFAULT_SUBJECTS
-  save()
-  updateAll()
-})
+// Nota: la acción de "resetear" fue eliminada (botón quitado del DOM)
 
 exportBtn.addEventListener('click', ()=>{
-  const blob = new Blob([JSON.stringify(subjects, null, 2)], {type:'application/json'})
+  // Exportar incluyendo nombre de la carrera si está disponible
+  const exportObj = {
+    nombre_carrera: carreraNombre || defaultSubtitle || 'Mi carrera',
+    materias: subjects
+  }
+  const blob = new Blob([JSON.stringify(exportObj, null, 2)], {type:'application/json'})
   const url = URL.createObjectURL(blob)
   const a = document.createElement('a')
   a.href = url; a.download = 'progreso.json'
@@ -289,12 +386,22 @@ if (importBtn) {
   if (importFile) {
     importBtn.addEventListener('click', ()=> importFile.click())
     function applyImportedData(data){
-      if (!Array.isArray(data)) throw new Error('Formato inválido')
+      // aceptar tanto array plano como objeto con { nombre_carrera, materias }
+      let normalized = null
+      if (Array.isArray(data)) normalized = data
+      else if (data && Array.isArray(data.materias)) {
+        normalized = data.materias
+        if (data.nombre_carrera) setCarreraNombre(data.nombre_carrera)
+      } else {
+        throw new Error('Formato inválido')
+      }
+
       const existingRaw = localStorage.getItem(STORAGE_KEY)
       if (existingRaw) {
         try {
           const existing = JSON.parse(existingRaw)
-          if (JSON.stringify(existing) !== JSON.stringify(data)) {
+          const existingNorm = Array.isArray(existing) ? existing : (existing && Array.isArray(existing.materias) ? existing.materias : null)
+          if (existingNorm && JSON.stringify(existingNorm) !== JSON.stringify(normalized)) {
             const ok = confirm('Se detectaron datos guardados localmente. Al importar se sobrescribirán. ¿Desea continuar?')
             if (!ok) return
           }
@@ -302,7 +409,7 @@ if (importBtn) {
           // parse error: continuar y sobrescribir
         }
       }
-      subjects = data
+      subjects = normalized
       save()
       updateAll()
       setStatus('Datos importados')
@@ -335,3 +442,37 @@ if (importBtn) {
 
 // Accessibility: resize handler recalculates position
 window.addEventListener('resize', ()=> updateAll())
+
+// Help modal behavior
+const helpBtn = document.getElementById('helpBtn')
+const helpModal = document.getElementById('helpModal')
+const helpOverlay = document.getElementById('helpOverlay')
+const closeHelp = document.getElementById('closeHelp')
+
+function openHelp(){
+  if (!helpModal || !helpOverlay) return
+  helpOverlay.hidden = false
+  helpModal.hidden = false
+  // move focus into dialog
+  const btn = document.getElementById('closeHelp')
+  if (btn) btn.focus()
+}
+function closeHelpModal(){
+  if (!helpModal || !helpOverlay) return
+  helpModal.hidden = true
+  helpOverlay.hidden = true
+  if (helpBtn) helpBtn.focus()
+}
+
+if (helpBtn){
+  helpBtn.addEventListener('click', ()=> openHelp())
+}
+if (closeHelp){
+  closeHelp.addEventListener('click', ()=> closeHelpModal())
+}
+if (helpOverlay){
+  helpOverlay.addEventListener('click', ()=> closeHelpModal())
+}
+window.addEventListener('keydown', (e)=>{
+  if (e.key === 'Escape') closeHelpModal()
+})

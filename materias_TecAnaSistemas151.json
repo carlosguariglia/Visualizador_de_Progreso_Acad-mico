@@ -1,4 +1,7 @@
-[
+{
+  "nombre_carrera": "Tecnicatura Analista de Sistemas - ISFT 151",
+  "materias": [
+
   {"id":"y1_s1","name":"Inglés I","year":1,"area":"Campo General","hours":64,"state":"no"},
   {"id":"y1_s2","name":"Ciencia Tecnología y Sociedad","year":1,"area":"Campo General","hours":64,"state":"no"},
   {"id":"y1_s3","name":"Análisis Matemático I","year":1,"area":"Campo del Fundamento","hours":64,"state":"no"},
@@ -25,3 +28,4 @@
   {"id":"y3_s6","name":"Algoritmos y estructuras de datos III","year":3,"area":"Campo Técnico Específico","hours":128,"state":"no"},
   {"id":"y3_s7","name":"Prácticas Profesionalizantes III","year":3,"area":"Campo de la Práctica","hours":192,"state":"no"}
 ]
+}

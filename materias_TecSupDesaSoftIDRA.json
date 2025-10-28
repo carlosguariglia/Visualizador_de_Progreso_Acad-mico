@@ -1,0 +1,31 @@
+{
+  "nombre_carrera": "TECNICATURA SUPERIOR EN DESARROLLO DE SOFTWARE - IDRA",
+  "materias": [
+
+  {"id":"y1_s1","name":"Análisis Matemático I","year":1,"area":"Campo General","hours":64,"state":"no"},
+  {"id":"y1_s2","name":"Administracion y gestion de base de datos","year":1,"area":"Campo Tecnico Especifico","hours":96,"state":"no"},
+  {"id":"y1_s3","name":"Introduccion a la programacion","year":1,"area":"Campo Tecnico Especifico","hours":96,"state":"no"},
+  {"id":"y1_s4","name":"Introduccion a las redes de datos","year":1,"area":"Campo del Fundamento","hours":64,"state":"no"},
+  {"id":"y1_s5","name":"Sistemas Digitales","year":1,"area":"Campo del Fundamento","hours":64,"state":"no"},
+  {"id":"y1_s6","name":"Sistemas Operativos","year":1,"area":"Campo del Fundamento","hours":64,"state":"no"},
+  {"id":"y1_s7","name":"Laboratorio de Hardware","year":1,"area":"Campo del Fundamento","hours":64,"state":"no"},
+  {"id":"y1_s8","name":"Prácticas Profesionalizantes I","year":1,"area":"Campo de la Práctica","hours":64,"state":"no"},
+
+  {"id":"y2_s1","name":"Inglés I","year":2,"area":"Campo General","hours":64,"state":"no"},
+  {"id":"y2_s2","name":"Desarrollo de aplicativos moviles","year":2,"area":"Campo General","hours":96,"state":"no"},
+  {"id":"y2_s3","name":"Algebra y logica","year":2,"area":"Campo General","hours":64,"state":"no"},
+  {"id":"y2_s4","name":"Programacion","year":2,"area":"Campo del Fundamento","hours":96,"state":"no"},
+  {"id":"y2_s5","name":"Diseño Web","year":2,"area":"Campo del Fundamento","hours":64,"state":"no"},
+  {"id":"y2_s6","name":"Estadistica y probabilidades","year":2,"area":"Campo del Fundamento","hours":64,"state":"no"},
+  {"id":"y2_s7","name":"Desarrollo de sistemas Orientado a Objetos","year":2,"area":"Campo Técnico Específico","hours":128,"state":"no"},
+  {"id":"y2_s8","name":"Prácticas Profesionalizantes II","year":2,"area":"Campo de la Práctica","hours":96,"state":"no"},
+
+  {"id":"y3_s1","name":"Inglés II","year":3,"area":"Campo General","hours":64,"state":"no"},
+  {"id":"y3_s2","name":"Gestion de Proyectos","year":3,"area":"Campo General","hours":64,"state":"no"},
+  {"id":"y3_s3","name":"Desarrollo de sistemas Web","year":3,"area":"Campo Tecnico Especifico","hours":128,"state":"no"},
+  {"id":"y3_s4","name":"Ingenieria de Software","year":3,"area":"Campo Técnico Específico","hours":128,"state":"no"},
+  {"id":"y3_s5","name":"Metolodogia de pruebas de sistemas","year":3,"area":"Campo Técnico Específico","hours":64,"state":"no"},
+  {"id":"y3_s6","name":"Algoritmos y estructuras de datos III","year":3,"area":"Campo Técnico Específico","hours":128,"state":"no"},
+  {"id":"y3_s7","name":"Prácticas Profesionalizantes III","year":3,"area":"Campo de la Práctica","hours":128,"state":"no"}
+]
+}

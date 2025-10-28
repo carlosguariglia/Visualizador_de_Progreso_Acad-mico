@@ -1,186 +1,189 @@
-[
-  {
-    "id": "y1_s1",
-    "name": "Inglés I",
-    "year": 1,
-    "area": "Campo General",
-    "hours": 64,
-    "state": "final"
-  },
-  {
-    "id": "y1_s2",
-    "name": "Ciencia Tecnología y Sociedad",
-    "year": 1,
-    "area": "Campo General",
-    "hours": 64,
-    "state": "final"
-  },
-  {
-    "id": "y1_s3",
-    "name": "Análisis Matemático I",
-    "year": 1,
-    "area": "Campo del Fundamento",
-    "hours": 64,
-    "state": "final"
-  },
-  {
-    "id": "y1_s4",
-    "name": "Álgebra",
-    "year": 1,
-    "area": "Campo del Fundamento",
-    "hours": 64,
-    "state": "final"
-  },
-  {
-    "id": "y1_s5",
-    "name": "Algoritmos y estructuras de datos I",
-    "year": 1,
-    "area": "Campo Técnico Específico",
-    "hours": 128,
-    "state": "final"
-  },
-  {
-    "id": "y1_s6",
-    "name": "Sistemas y Organizaciones",
-    "year": 1,
-    "area": "Campo Técnico Específico",
-    "hours": 64,
-    "state": "final"
-  },
-  {
-    "id": "y1_s7",
-    "name": "Arquitectura de Computadores",
-    "year": 1,
-    "area": "Campo Técnico Específico",
-    "hours": 64,
-    "state": "final"
-  },
-  {
-    "id": "y1_s8",
-    "name": "Prácticas Profesionalizantes I",
-    "year": 1,
-    "area": "Campo de la Práctica",
-    "hours": 64,
-    "state": "final"
-  },
-  {
-    "id": "y2_s1",
-    "name": "Inglés II",
-    "year": 2,
-    "area": "Campo General",
-    "hours": 64,
-    "state": "no"
-  },
-  {
-    "id": "y2_s2",
-    "name": "Análisis Matemático II",
-    "year": 2,
-    "area": "Campo del Fundamento",
-    "hours": 64,
-    "state": "no"
-  },
-  {
-    "id": "y2_s3",
-    "name": "Estadística",
-    "year": 2,
-    "area": "Campo del Fundamento",
-    "hours": 64,
-    "state": "no"
-  },
-  {
-    "id": "y2_s4",
-    "name": "Ingeniería de Software I",
-    "year": 2,
-    "area": "Campo Técnico Específico",
-    "hours": 64,
-    "state": "no"
-  },
-  {
-    "id": "y2_s5",
-    "name": "Algoritmos y estructuras de datos II",
-    "year": 2,
-    "area": "Campo Técnico Específico",
-    "hours": 128,
-    "state": "no"
-  },
-  {
-    "id": "y2_s6",
-    "name": "Sistemas Operativos",
-    "year": 2,
-    "area": "Campo Técnico Específico",
-    "hours": 64,
-    "state": "no"
-  },
-  {
-    "id": "y2_s7",
-    "name": "Base de Datos",
-    "year": 2,
-    "area": "Campo Técnico Específico",
-    "hours": 64,
-    "state": "no"
-  },
-  {
-    "id": "y2_s8",
-    "name": "Prácticas Profesionalizantes II",
-    "year": 2,
-    "area": "Campo de la Práctica",
-    "hours": 128,
-    "state": "no"
-  },
-  {
-    "id": "y3_s1",
-    "name": "Inglés III",
-    "year": 3,
-    "area": "Campo General",
-    "hours": 64,
-    "state": "no"
-  },
-  {
-    "id": "y3_s2",
-    "name": "Aspectos legales de la Profesión",
-    "year": 3,
-    "area": "Campo del Fundamento",
-    "hours": 64,
-    "state": "no"
-  },
-  {
-    "id": "y3_s3",
-    "name": "Seminario de actualización",
-    "year": 3,
-    "area": "Campo del Fundamento",
-    "hours": 64,
-    "state": "no"
-  },
-  {
-    "id": "y3_s4",
-    "name": "Redes y Comunicaciones",
-    "year": 3,
-    "area": "Campo Técnico Específico",
-    "hours": 64,
-    "state": "no"
-  },
-  {
-    "id": "y3_s5",
-    "name": "Ingeniería de Software II",
-    "year": 3,
-    "area": "Campo Técnico Específico",
-    "hours": 64,
-    "state": "no"
-  },
-  {
-    "id": "y3_s6",
-    "name": "Algoritmos y estructuras de datos III",
-    "year": 3,
-    "area": "Campo Técnico Específico",
-    "hours": 128,
-    "state": "no"
-  },
-  {
-    "id": "y3_s7",
-    "name": "Prácticas Profesionalizantes III",
-    "year": 3,
-    "area": "Campo de la Práctica",
-    "hours": 192,
-    "state": "no"
-  }
-]
+{
+  "nombre_carrera": "Tecnicatura Analista de Sistemas - ISFT 151",
+  "materias": [
+    {
+      "id": "y1_s1",
+      "name": "Inglés I",
+      "year": 1,
+      "area": "Campo General",
+      "hours": 64,
+      "state": "final"
+    },
+    {
+      "id": "y1_s2",
+      "name": "Ciencia Tecnología y Sociedad",
+      "year": 1,
+      "area": "Campo General",
+      "hours": 64,
+      "state": "final"
+    },
+    {
+      "id": "y1_s3",
+      "name": "Análisis Matemático I",
+      "year": 1,
+      "area": "Campo del Fundamento",
+      "hours": 64,
+      "state": "final"
+    },
+    {
+      "id": "y1_s4",
+      "name": "Álgebra",
+      "year": 1,
+      "area": "Campo del Fundamento",
+      "hours": 64,
+      "state": "final"
+    },
+    {
+      "id": "y1_s5",
+      "name": "Algoritmos y estructuras de datos I",
+      "year": 1,
+      "area": "Campo Técnico Específico",
+      "hours": 128,
+      "state": "final"
+    },
+    {
+      "id": "y1_s6",
+      "name": "Sistemas y Organizaciones",
+      "year": 1,
+      "area": "Campo Técnico Específico",
+      "hours": 64,
+      "state": "final"
+    },
+    {
+      "id": "y1_s7",
+      "name": "Arquitectura de Computadores",
+      "year": 1,
+      "area": "Campo Técnico Específico",
+      "hours": 64,
+      "state": "final"
+    },
+    {
+      "id": "y1_s8",
+      "name": "Prácticas Profesionalizantes I",
+      "year": 1,
+      "area": "Campo de la Práctica",
+      "hours": 64,
+      "state": "final"
+    },
+    {
+      "id": "y2_s1",
+      "name": "Inglés II",
+      "year": 2,
+      "area": "Campo General",
+      "hours": 64,
+      "state": "no"
+    },
+    {
+      "id": "y2_s2",
+      "name": "Análisis Matemático II",
+      "year": 2,
+      "area": "Campo del Fundamento",
+      "hours": 64,
+      "state": "no"
+    },
+    {
+      "id": "y2_s3",
+      "name": "Estadística",
+      "year": 2,
+      "area": "Campo del Fundamento",
+      "hours": 64,
+      "state": "no"
+    },
+    {
+      "id": "y2_s4",
+      "name": "Ingeniería de Software I",
+      "year": 2,
+      "area": "Campo Técnico Específico",
+      "hours": 64,
+      "state": "no"
+    },
+    {
+      "id": "y2_s5",
+      "name": "Algoritmos y estructuras de datos II",
+      "year": 2,
+      "area": "Campo Técnico Específico",
+      "hours": 128,
+      "state": "no"
+    },
+    {
+      "id": "y2_s6",
+      "name": "Sistemas Operativos",
+      "year": 2,
+      "area": "Campo Técnico Específico",
+      "hours": 64,
+      "state": "no"
+    },
+    {
+      "id": "y2_s7",
+      "name": "Base de Datos",
+      "year": 2,
+      "area": "Campo Técnico Específico",
+      "hours": 64,
+      "state": "no"
+    },
+    {
+      "id": "y2_s8",
+      "name": "Prácticas Profesionalizantes II",
+      "year": 2,
+      "area": "Campo de la Práctica",
+      "hours": 128,
+      "state": "no"
+    },
+    {
+      "id": "y3_s1",
+      "name": "Inglés III",
+      "year": 3,
+      "area": "Campo General",
+      "hours": 64,
+      "state": "no"
+    },
+    {
+      "id": "y3_s2",
+      "name": "Aspectos legales de la Profesión",
+      "year": 3,
+      "area": "Campo del Fundamento",
+      "hours": 64,
+      "state": "no"
+    },
+    {
+      "id": "y3_s3",
+      "name": "Seminario de actualización",
+      "year": 3,
+      "area": "Campo del Fundamento",
+      "hours": 64,
+      "state": "no"
+    },
+    {
+      "id": "y3_s4",
+      "name": "Redes y Comunicaciones",
+      "year": 3,
+      "area": "Campo Técnico Específico",
+      "hours": 64,
+      "state": "no"
+    },
+    {
+      "id": "y3_s5",
+      "name": "Ingeniería de Software II",
+      "year": 3,
+      "area": "Campo Técnico Específico",
+      "hours": 64,
+      "state": "no"
+    },
+    {
+      "id": "y3_s6",
+      "name": "Algoritmos y estructuras de datos III",
+      "year": 3,
+      "area": "Campo Técnico Específico",
+      "hours": 128,
+      "state": "no"
+    },
+    {
+      "id": "y3_s7",
+      "name": "Prácticas Profesionalizantes III",
+      "year": 3,
+      "area": "Campo de la Práctica",
+      "hours": 192,
+      "state": "no"
+    }
+  ]
+}

@@ -9,7 +9,7 @@
 <body>
   <div class="container">
     <header>
-      <h1>Progreso académico - Tecnicatura en Análisis de Sistemas</h1>
+      <h1>Progreso académico - Tecnicatura en Análisis de Sistemas / Diseñado por <a href="https://github.com/carlosguariglia" target="_blank" rel="noopener">Carlos Guariglia</a></h1>
       <p class="subtitle">Instituto Superior de Formacion Tecnica Nro 151</p>
     </header>
 
@@ -48,6 +48,14 @@
             </g>
           </svg>
           <div id="milestones" class="milestones" aria-hidden="true"></div>
+          <div id="completionFlag" class="completion-flag" aria-hidden="true">
+            <svg width="28" height="28" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+              <path d="M4 21V3" stroke="#0f172a" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+              <path d="M4 7c2-1.5 4-2 6 0s4 0 6-2v10c-2 2-4 1.5-6 0s-4 0-6 2" stroke="#2b8ae2" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+            <span>¡Felicitaciones! Completaste la carrera</span>
+          </div>
+          <div id="confetti" class="confetti" aria-hidden="true"></div>
         </div>
 
         <div class="progress-card">
@@ -63,14 +71,13 @@
       </section>
 
       <section class="controls">
-        <h2>Materias</h2>
+        <h2>Materias <button id="helpBtn" class="help-btn" aria-haspopup="dialog" aria-controls="helpModal" title="Ayuda">?</button></h2>
         <div id="yearTabs" class="year-tabs" role="tablist" aria-label="Años"></div>
         <div id="subjectsContainer">
           <!-- Materias del año seleccionado inyectadas por JS -->
         </div>
 
         <div class="buttons">
-          <button id="resetBtn">Resetear datos</button>
           <button id="exportBtn">Exportar JSON</button>
           <input type="file" id="importFile" accept="application/json" style="display:none">
           <button id="importBtn">Importar JSON</button>
@@ -78,8 +85,29 @@
       </section>
     </main>
 
+    <!-- Help modal -->
+    <div id="helpOverlay" class="help-overlay" hidden></div>
+    <div id="helpModal" class="help-modal" role="dialog" aria-modal="true" aria-labelledby="helpTitle" hidden>
+      <div class="help-content">
+        <h3 id="helpTitle">Información</h3>
+        <ul>
+          <li>Usa <strong>Importar JSON</strong> para cambiar los datos</li>
+          <li>Usa <strong>Exportar JSON</strong> para guardar el estado</li>
+          <li>El porcentaje se calcula en relación a la cantidad de horas de cada materia en relación con la cantidad total de horas de la carrera.</li>
+          <li><strong>No cursada</strong> 0%</li>
+          <li><strong>Cursando</strong> 25%</li>
+          <li><strong>Cursada Aprobada</strong> 75%</li>
+          <li><strong>Final Aprobado</strong> y <strong>Equivalencia</strong> 100%</li>
+        </ul>
+        <div class="help-actions"><button id="closeHelp" class="button">Cerrar</button></div>
+      </div>
+    </div>
+
     <footer>
       <small>Demo local — datos guardados en localStorage</small>
+      <div class="credits">
+        Diseñado por <a href="https://github.com/carlosguariglia" target="_blank" rel="noopener">Carlos Guariglia</a>
+      </div>
     </footer>
   </div>
   <script src="app.js"></script>
