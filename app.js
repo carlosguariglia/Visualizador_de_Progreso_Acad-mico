@@ -12,6 +12,15 @@
  Guardado en localStorage con clave 'studentProgressDemo'
 */
 
+/*
+  Contract & notes (short):
+  - Inputs: JSON data (array of materias OR { nombre_carrera, materias }) via fetch/import or localStorage.
+  - Outputs: UI updates (progress bar, climber position, subject list) and localStorage payload { nombre_carrera, materias }.
+  - Error modes: malformed JSON on import (user sees alert), fetch failure falls back to localStorage/defaults.
+  - Success criteria: load() -> subjects populated; save() -> localStorage contains payload; updateAll() reflects % and triggers flag/confetti at 100%.
+  Edge cases handled: empty subject list (totalPoints=0), legacy array-only storage, viewport resizes that reposition climber.
+*/
+
 const STORAGE_KEY = 'studentProgressDemo'
 
 const DEFAULT_SUBJECTS = [
@@ -285,6 +294,9 @@ function stateLabel(k){
 }
 
 function updateAll(){
+  // updateAll: single reconciliation point. Renders subjects, recalculates totals, updates
+  // progress UI, repositions the climber and toggles the completion flag/confetti.
+  // This ensures consistent UI after any state change.
   renderSubjects()
   const {totalPoints, actualPoints, pct} = calcTotals()
   progressBar.style.width = pct + '%'
@@ -327,6 +339,8 @@ function moveClimberToPercent(pct){
       const path = mountainSVG.querySelector('#trail')
       const climber = mountainSVG.querySelector('#climberG')
       if (path && climber) {
+        // I/O: reads path geometry (getTotalLength/getPointAtLength) and writes `transform` on #climberG.
+        // Performance: sampling delta uses a small fraction of total length; kept minimal to avoid jank.
         const total = path.getTotalLength()
         const len = Math.max(0, Math.min(total, (pct/100) * total))
         const pt = path.getPointAtLength(len)
@@ -385,6 +399,9 @@ exportBtn.addEventListener('click', ()=>{
 if (importBtn) {
   if (importFile) {
     importBtn.addEventListener('click', ()=> importFile.click())
+    // applyImportedData(data): normalize and apply imported file data.
+    // Accepts: array OR { nombre_carrera, materias }.
+    // If local data exists and differs, asks the user before overwriting.
     function applyImportedData(data){
       // aceptar tanto array plano como objeto con { nombre_carrera, materias }
       let normalized = null
